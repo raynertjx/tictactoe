@@ -1,25 +1,65 @@
 var stage = document.querySelector("#stage");
-
-// 2d array for the gameboard
-var gameBoard = [
-  [0, 0, 0],
-  [0, 0, 0],
-  [0, 0, 0]
+var gameBoardArr = [
+  " ", " ", " ",
+  " ", " ", " ",
+  " ", " ", " "
 ];
-
 var SIZE = 100;
-
 var SPACE = 10;
+var ROWS = 3
+var COLUMNS = 3;
+var playerTurn = true;
 
-var ROWS = gameBoard.length;
-var COLUMNS = gameBoard[0].length;
-
-for (var row = 0; row < ROWS; row++) {
-  for (var column = 0; column < COLUMNS; column++) {
-    var cell = document.createElement("div");
-    cell.setAttribute("class", "cell");
-    stage.appendChild(cell);
-    cell.style.top = row * (SIZE + SPACE) + "px";
-    cell.style.left = column * (SIZE + SPACE) + "px";
+// player factory function 
+const createPlayer = (name, symbol) => {
+  return {
+    name: name,
+    symbol: symbol
   }
 }
+
+// gameBoard module
+var gameBoard = (function() {
+  'use strict';
+  
+  function createGameBoard(symbol1, symbol2) {
+    for (var row = 0; row < ROWS; row++) {
+      for (var column = 0; column < COLUMNS; column++) {
+        var cell = document.createElement("div");
+        cell.setAttribute("class", "cell");
+        stage.appendChild(cell);
+       
+
+        cell.addEventListener("click", function() {
+          if (playerTurn) {
+            this.innerHTML = symbol1;
+          } else {
+            this.innerHTML = symbol2;
+          }
+          playerTurn = !playerTurn;
+        });
+      }
+    }
+  }
+
+  return {
+    createGameBoard: createGameBoard
+  };
+
+})();
+
+
+
+// game object, controls flow of game
+var game = function() {
+
+  // Create players
+  var player1 = createPlayer(1, "x");
+  var player2 = createPlayer(2, "o");
+
+  // Create gameboard
+  gameBoard.createGameBoard(player1.symbol, player2.symbol);
+
+}
+
+game()
