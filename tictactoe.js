@@ -1,5 +1,6 @@
 var stage = document.querySelector("#stage");
 var playerTurnText = document.querySelector("#playerturntext");
+var winningText = document.querySelector("#winningtext")
 var gameBoardArr = [
   " ", " ", " ",
   " ", " ", " ",
@@ -45,13 +46,13 @@ var gameBoard = (function() {
             playerTurnText.innerText = `${player1.name}` + "" + "'s Turn";
             gameBoardArr[this.getAttribute("id")] = player1.symbol
             console.log(gameBoardArr)
-            displayController.checkWinner(player1.symbol);
+            displayController.checkWinner(player1);
           } else {
             this.innerText = player2.symbol;
             playerTurnText.innerText = `${player2.name}` + "" + "'s Turn";
             gameBoardArr[this.getAttribute("id")] = player2.symbol
             console.log(gameBoardArr)
-            displayController.checkWinner(player2.symbol);
+            displayController.checkWinner(player2);
           }
           playerTurn = !playerTurn;
         });
@@ -70,21 +71,21 @@ var displayController = (function() {
   function checkWinner(player) {
     for (var i = 0; i < 3; i++) {
       // check the rows for winner
-      if (gameBoardArr[3 * i] === player && gameBoardArr[1 + 3 * i] === player && gameBoardArr[2 + 3 * i] === player) {
-        console.log("yay");
+      if (gameBoardArr[3 * i] === player.symbol && gameBoardArr[1 + 3 * i] === player.symbol && gameBoardArr[2 + 3 * i] === player.symbol) {
+        winningText.innerText = player.name;
       }
       // check the columns for winner
-      if (gameBoardArr[i] === player && gameBoardArr[3 + i] === player && gameBoardArr[6 + i] === player) {
-        console.log("yay");
+      if (gameBoardArr[i] === player.symbol && gameBoardArr[3 + i] === player.symbol && gameBoardArr[6 + i] === player.symbol) {
+        winningText.innerText = player.name;
       }
     }
     // check the first diagonal for winner
-    if (gameBoardArr[0] === player && gameBoardArr[4] === player && gameBoardArr[8] === player) {
-      console.log("yay");
+    if (gameBoardArr[0] === player.symbol && gameBoardArr[4] === player.symbol && gameBoardArr[8] === player.symbol) {
+      winningText.innerText = player.name;
     }
     // check the second diagonal for winner
-    if (gameBoardArr[2] === player && gameBoardArr[4] === player && gameBoardArr[6] === player) {
-      console.log("yay");
+    if (gameBoardArr[2] === player.symbol && gameBoardArr[4] === player.symbol && gameBoardArr[6] === player.symbol) {
+      winningText.innerText = player.name;
     }
   }
   return {
