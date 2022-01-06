@@ -1,6 +1,18 @@
-#stage
-{
-    position: relative;
+html, body {
+  height: 90%;
+}
+
+.startgamemenu, .gamescreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  
+}
+
+#playerturntext {
+  height: 50px;
 }
 
 .cell
@@ -19,3 +31,6 @@
   grid-template-columns: repeat(3, 100px);
 }
 
+.hidden {
+  display: none;
+}
