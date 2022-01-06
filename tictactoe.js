@@ -1,6 +1,9 @@
 var stage = document.querySelector("#stage");
 var playerTurnText = document.querySelector("#playerturntext");
-var winningText = document.querySelector("#winningtext")
+var winningText = document.querySelector("#winningtext");
+var startGameBtn = document.querySelector(".startgamebtn");
+var startGameMenu = document.querySelector(".startgamemenu");
+var gameScreen = document.querySelector(".gamescreen");
 var gameBoardArr = [
   " ", " ", " ",
   " ", " ", " ",
@@ -12,7 +15,6 @@ var SPACE = 10;
 var ROWS = 3
 var COLUMNS = 3;
 var playerTurn = true;
-
 
 // player factory function 
 const createPlayer = (name, symbol) => {
@@ -34,27 +36,29 @@ var gameBoard = (function() {
         cell.setAttribute("id", CELL_COUNT);
         stage.appendChild(cell);
         CELL_COUNT++;
+        
+        displayController.playerTurnDisplay(player1, player2)
        
         cell.addEventListener("click", function() {
           // make sure player cannot play in spot that is already taken
+          
           if (this.innerText != "") {
             return;
           }
           // alternates between the 2 players
           if (playerTurn) {
             this.innerText = player1.symbol;
-            playerTurnText.innerText = `${player1.name}` + "" + "'s Turn";
             gameBoardArr[this.getAttribute("id")] = player1.symbol
-            console.log(gameBoardArr)
             displayController.checkWinner(player1);
           } else {
             this.innerText = player2.symbol;
             playerTurnText.innerText = `${player2.name}` + "" + "'s Turn";
             gameBoardArr[this.getAttribute("id")] = player2.symbol
-            console.log(gameBoardArr)
             displayController.checkWinner(player2);
           }
           playerTurn = !playerTurn;
+          console.log(playerTurn)
+          displayController.playerTurnDisplay(player1, player2)
         });
       }
     }
@@ -67,7 +71,7 @@ var gameBoard = (function() {
 // displayController module
 var displayController = (function() {
   'use strict'
-
+  // check for winner
   function checkWinner(player) {
     for (var i = 0; i < 3; i++) {
       // check the rows for winner
@@ -88,8 +92,28 @@ var displayController = (function() {
       winningText.innerText = player.name;
     }
   }
+
+  function playerTurnDisplay(player1, player2) {
+    if (playerTurn) {
+      playerTurnText.innerText = `${player1.name}` + "" + "'s Turn";
+    } else {
+      playerTurnText.innerText = `${player2.name}` + "" + "'s Turn";
+    }
+  }
+
+  function hideContent(id) {
+    id.classList.add("hidden");
+  }
+
+  function showContent(id) {
+    id.classList.remove("hidden");
+  }
+
   return {
-    checkWinner: checkWinner
+    checkWinner: checkWinner,
+    playerTurnDisplay: playerTurnDisplay,
+    hideContent: hideContent,
+    showContent: showContent
   };
 })();
 
@@ -105,4 +129,8 @@ var game = function() {
 
 }
 
-game()
+startGameBtn.addEventListener("click", () => {
+  game();
+  displayController.hideContent(startGameMenu);
+  displayController.showContent(gameScreen);
+})
