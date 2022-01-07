@@ -11,8 +11,15 @@ html, body {
   
 }
 
+
 #playerturntext {
   height: 50px;
+  border: 1px solid black;
+}
+
+#winningtext {
+  height: 20px;
+  border: 1px solid black;
 }
 
 .cell
