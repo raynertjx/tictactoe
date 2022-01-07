@@ -5,9 +5,9 @@ var startGameBtn = document.querySelector(".startgamebtn");
 var startGameMenu = document.querySelector(".startgamemenu");
 var gameScreen = document.querySelector(".gamescreen");
 var gameBoardArr = [
-  " ", " ", " ",
-  " ", " ", " ",
-  " ", " ", " "
+  "", "", "",
+  "", "", "",
+  "", "", ""
 ];
 var CELL_COUNT = 0;
 var SIZE = 100;
@@ -15,6 +15,7 @@ var SPACE = 10;
 var ROWS = 3
 var COLUMNS = 3;
 var playerTurn = true;
+var winnerFound = false;
 
 // player factory function 
 const createPlayer = (name, symbol) => {
@@ -41,7 +42,6 @@ var gameBoard = (function() {
        
         cell.addEventListener("click", function() {
           // make sure player cannot play in spot that is already taken
-          
           if (this.innerText != "") {
             return;
           }
@@ -57,7 +57,6 @@ var gameBoard = (function() {
             displayController.checkWinner(player2);
           }
           playerTurn = !playerTurn;
-          console.log(playerTurn)
           displayController.playerTurnDisplay(player1, player2)
         });
       }
@@ -76,20 +75,30 @@ var displayController = (function() {
     for (var i = 0; i < 3; i++) {
       // check the rows for winner
       if (gameBoardArr[3 * i] === player.symbol && gameBoardArr[1 + 3 * i] === player.symbol && gameBoardArr[2 + 3 * i] === player.symbol) {
-        winningText.innerText = player.name;
+        winnerFound = !winnerFound;
+        displayController.displayWinner(player.name);
       }
       // check the columns for winner
       if (gameBoardArr[i] === player.symbol && gameBoardArr[3 + i] === player.symbol && gameBoardArr[6 + i] === player.symbol) {
-        winningText.innerText = player.name;
+        winnerFound = !winnerFound;
+        displayController.displayWinner(player.name);
       }
     }
     // check the first diagonal for winner
     if (gameBoardArr[0] === player.symbol && gameBoardArr[4] === player.symbol && gameBoardArr[8] === player.symbol) {
-      winningText.innerText = player.name;
+      winnerFound = !winnerFound;
+      displayController.displayWinner(player.name);
     }
     // check the second diagonal for winner
     if (gameBoardArr[2] === player.symbol && gameBoardArr[4] === player.symbol && gameBoardArr[6] === player.symbol) {
-      winningText.innerText = player.name;
+      winnerFound = !winnerFound;
+      displayController.displayWinner(player.name);
+    }
+    // if no winner, print draw
+    const arrIsFilled = (currentValue) => currentValue != "";
+    if ((!winnerFound) && (gameBoardArr.every(arrIsFilled))) {
+      winningText.innerText = "Draw!";
+      showContent(winningText);
     }
   }
 
@@ -100,6 +109,12 @@ var displayController = (function() {
       playerTurnText.innerText = `${player2.name}` + "" + "'s Turn";
     }
   }
+
+  function displayWinner(player) {
+    winningText.innerText = player + " wins!";
+    showContent(winningText);
+  }
+
 
   function hideContent(id) {
     id.classList.add("hidden");
@@ -112,6 +127,7 @@ var displayController = (function() {
   return {
     checkWinner: checkWinner,
     playerTurnDisplay: playerTurnDisplay,
+    displayWinner: displayWinner,
     hideContent: hideContent,
     showContent: showContent
   };
