@@ -1,14 +1,14 @@
 var stage = document.querySelector("#stage");
 var playerTurnText = document.querySelector("#playerturntext");
+var winnerContainer = document.querySelector(".winnercontainer");
 var winningText = document.querySelector("#winningtext");
-var startGameBtn = document.querySelector(".startgamebtn");
-var startGameMenu = document.querySelector(".startgamemenu");
+var playerMenu = document.querySelector(".playermenu")
+var player1Name = document.querySelector("#player1name");
+var player2Name = document.querySelector("#player2name");
+var mainMenu = document.querySelector(".mainmenu");
 var gameScreen = document.querySelector(".gamescreen");
-var gameBoardArr = [
-  "", "", "",
-  "", "", "",
-  "", "", ""
-];
+const buttons = document.querySelectorAll("button");
+var gameBoardArr = ["", "", "", "", "", "", "", "", ""];
 var CELL_COUNT = 0;
 var SIZE = 100;
 var SPACE = 10;
@@ -41,10 +41,10 @@ var gameBoard = (function() {
         displayController.playerTurnDisplay(player1, player2)
        
         cell.addEventListener("click", function() {
-          // make sure player cannot play in spot that is already taken
-          if (this.innerText != "") {
+          // ensure player cannot place marker when spot is already taken or when game is over
+          if (this.innerText != "" || (winnerFound)) {
             return;
-          }
+          } 
           // alternates between the 2 players
           if (playerTurn) {
             this.innerText = player1.symbol;
@@ -62,8 +62,26 @@ var gameBoard = (function() {
       }
     }
   }
+
+  function restartGameBoard() {
+    // reset certain variables
+    CELL_COUNT = 0;
+    gameBoardArr = ["", "", "", "", "", "", "", "", ""];
+    playerTurn = !playerTurn;
+    displayController.hideContent(winnerContainer)
+    if (winnerFound) {
+      winnerFound = !winnerFound;
+    }
+    if (!playerTurn) {
+      playerTurn = !playerTurn;
+    }
+    while (stage.firstChild) {
+      stage.removeChild(stage.lastChild);
+    }
+  }
   return {
-    createGameBoard: createGameBoard
+    createGameBoard: createGameBoard,
+    restartGameBoard: restartGameBoard
   };
 })();
 
@@ -97,8 +115,7 @@ var displayController = (function() {
     // if no winner, print draw
     const arrIsFilled = (currentValue) => currentValue != "";
     if ((!winnerFound) && (gameBoardArr.every(arrIsFilled))) {
-      winningText.innerText = "Draw!";
-      showContent(winningText);
+      displayController.displayWinner(player.name);
     }
   }
 
@@ -111,8 +128,14 @@ var displayController = (function() {
   }
 
   function displayWinner(player) {
-    winningText.innerText = player + " wins!";
-    showContent(winningText);
+    if (winnerFound) {
+      winningText.innerText = player + " wins!";
+      showContent(winnerContainer);
+    }
+    else {
+      winningText.innerText = "Draw!";
+      showContent(winnerContainer);
+    }
   }
 
 
@@ -134,19 +157,51 @@ var displayController = (function() {
 })();
 
 // game object, controls flow of game
-var game = function() {
+var game = function(name1, name2) {
 
   // Create players
-  var player1 = createPlayer(1, "x");
-  var player2 = createPlayer(2, "o");
+  var player1 = createPlayer(name1, "x");
+  var player2 = createPlayer(name2, "o");
 
   // Create gameboard
   gameBoard.createGameBoard(player1, player2);
-
 }
 
-startGameBtn.addEventListener("click", () => {
-  game();
-  displayController.hideContent(startGameMenu);
-  displayController.showContent(gameScreen);
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    if (button.classList.contains("playermenubtn")) {
+      displayController.hideContent(mainMenu);
+      displayController.showContent(playerMenu);
+    }
+    if (button.classList.contains("startgamebtn")) {
+      if (player1Name.value == "" || player2Name.value == "") {
+        alert("Please input your names!")
+        return;
+      }
+      if (player1Name.value == player2Name.value) {
+        alert("Player names cannot be the same!")
+        player1Name.value = "";
+        player2Name.value = "";
+        return;
+      }
+      game(player1Name.value, player2Name.value);
+      displayController.hideContent(playerMenu);
+      displayController.showContent(gameScreen);
+    }
+    if (button.classList.contains("gobackbtn")) {
+      displayController.hideContent(playerMenu);
+      displayController.showContent(mainMenu);
+    }
+    if (button.classList.contains("restartbtn")) {
+      gameBoard.restartGameBoard();
+      game(player1Name.value, player2Name.value);
+    }
+    if (button.classList.contains("mainmenubtn")) {
+      player1Name.value = "";
+      player2Name.value = "";
+      gameBoard.restartGameBoard();
+      displayController.showContent(mainMenu);
+      displayController.hideContent(gameScreen);
+    }
+  })
 })
