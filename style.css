@@ -2,15 +2,31 @@ html, body {
   height: 90%;
 }
 
-.startgamemenu, .gamescreen {
+.mainmenu, .gamescreen {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
-  
 }
 
+.gamescreen {
+  gap: 100px;
+}
+
+.playermenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  height: 100%;
+}
+
+.playernameinput {
+  display: flex;
+  gap: 50px;
+}
 
 #playerturntext {
   height: 50px;
