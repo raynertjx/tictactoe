@@ -4,40 +4,43 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <link href="https://css.gg/css?=|bot|menu-boxed|undo|user" rel="stylesheet">
   <title>Tic-Tac-Toe</title>
 </head>
 <body>
   <div class="mainmenu">
-    <h1>Tic-Tac-Toe</h1>
-    <h2>Play Game:</h2>    
-    <button class="playermenubtn">Player VS Player</button>
+    <h1 class=" gametitle">Tic-Tac-Toe</h1>
+    <h2 class="playgametitle">Play Game:</h2>    
+    <button class="playermenubtn btn">VS Player<i class="gg-user"></i></button>
   </div>
   <div class="playermenu hidden">
     <div class="playernameinput">
       <div class="playernamebox">
         <h1>Player 1:</h1>
-        <input type="text" name="player1name" id="player1name" placeholder="What's your name?" autocomplete="off" required>
+        <input type="text" name="player1name" id="player1name"  autocomplete="off" required>
       </div>
       <div class="playernamebox">
         <h1>Player 2:</h1>
-        <input type="text" name="player2name" id="player2name" placeholder="What's your name?" autocomplete="off" required>
+        <input type="text" name="player2name" id="player2name"  autocomplete="off" required>
       </div>
     </div>
-    <button class="startgamebtn">Start Game</button> 
-    <button class="gobackbtn">Go Back</button> 
+    <div class="playermenubtnbox">
+      <button class="gobackbtn btn">Go Back</button>
+      <button class="startgamebtn btn">Start Game</button>
+    </div> 
   </div>
   <div class="gamescreen hidden">
       <div id="playerturntext"></div>
       <div id="stage" class="grid"></div>
       <div class="winnercontainer hidden">
         <div id="winningtext"></div>
-        <button class="mainmenubtn">Main Menu</button>
-        <button class="restartbtn">Restart</button>
+        <button class="mainmenubtn btn">Main Menu</button>
+        <button class="restartbtn btn">Restart</button>
       </div>
   </div>
 </body>
