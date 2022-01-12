@@ -1,5 +1,56 @@
+@font-face {
+  font-family: 'clearSans';
+  src: url('fonts/ClearSans-Regular.ttf');
+}
+
 html, body {
   height: 90%;
+  font-family: 'Inter', sans-serif;
+  background-color: #fff;
+}
+
+input[type=text] {
+  font-size: 25px;
+  background-color: transparent;
+  border: 3px solid #808080;
+  border-radius: 7px;
+  caret-color: #616161;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  gap: 10px;
+  padding: 0.5rem 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  color: #808080;
+  background-color: transparent;
+  border: 3px solid #808080;
+  border-radius: 7px;
+}
+
+.btn:hover {
+  color: #000;
+  background-color: #f2f0f1;
+  border: 3px solid #e78190;
+  -webkit-transition: background-color 0.2s ease, border 0.2s ease;
+  -ms-transition: background-color 0.2s  ease, border 0.2s ease;
+  transition: background-color 0.2s ease, border 0.2s ease;
+}
+
+.gametitle {
+  font-size: 100px;
+  margin: 0px 0px 15px 0px;
+  color: #2E2C74;
+}
+
+.playgametitle {
+  font-size: 50px;
+  margin: 0px 0px 50px 0px;
+  color: #9CCCCD;
 }
 
 .mainmenu, .gamescreen {
@@ -28,6 +79,11 @@ html, body {
   gap: 50px;
 }
 
+.playermenubtnbox {
+  display: flex;
+  gap: 3rem;
+}
+
 #playerturntext {
   height: 50px;
   border: 1px solid black;
@@ -38,8 +94,7 @@ html, body {
   border: 1px solid black;
 }
 
-.cell
-{
+.cell {
   width: 100px;
   height: 100px;
   border: 1px solid black;
