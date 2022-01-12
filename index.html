@@ -9,15 +9,33 @@
   <title>Tic-Tac-Toe</title>
 </head>
 <body>
-  <div class="startgamemenu">
+  <div class="mainmenu">
     <h1>Tic-Tac-Toe</h1>
     <h2>Play Game:</h2>    
-    <button class="startgamebtn">Start</button>
+    <button class="playermenubtn">Player VS Player</button>
+  </div>
+  <div class="playermenu hidden">
+    <div class="playernameinput">
+      <div class="playernamebox">
+        <h1>Player 1:</h1>
+        <input type="text" name="player1name" id="player1name" placeholder="What's your name?" autocomplete="off" required>
+      </div>
+      <div class="playernamebox">
+        <h1>Player 2:</h1>
+        <input type="text" name="player2name" id="player2name" placeholder="What's your name?" autocomplete="off" required>
+      </div>
+    </div>
+    <button class="startgamebtn">Start Game</button> 
+    <button class="gobackbtn">Go Back</button> 
   </div>
   <div class="gamescreen hidden">
-    <div id="playerturntext"></div>
-    <div id="stage" class="grid"></div>
-    <div id="winningtext" class="hidden">123</div>
+      <div id="playerturntext"></div>
+      <div id="stage" class="grid"></div>
+      <div class="winnercontainer hidden">
+        <div id="winningtext"></div>
+        <button class="mainmenubtn">Main Menu</button>
+        <button class="restartbtn">Restart</button>
+      </div>
   </div>
 </body>
 <script src="tictactoe.js"></script>
