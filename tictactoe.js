@@ -1,7 +1,7 @@
 var stage = document.querySelector("#stage");
-var playerTurnText = document.querySelector("#playerturntext");
+var playerTurnText = document.querySelector(".playerturntext");
 var winnerContainer = document.querySelector(".winnercontainer");
-var winningText = document.querySelector("#winningtext");
+var winningText = document.querySelector(".winningtext");
 var playerMenu = document.querySelector(".playermenu")
 var player1Name = document.querySelector("#player1name");
 var player2Name = document.querySelector("#player2name");
@@ -33,7 +33,7 @@ var gameBoard = (function() {
     for (var row = 0; row < ROWS; row++) {
       for (var column = 0; column < COLUMNS; column++) {
         var cell = document.createElement("div");
-        cell.setAttribute("class", "cell");
+        cell.setAttribute("class", "cell fadein");
         cell.setAttribute("id", CELL_COUNT);
         stage.appendChild(cell);
         CELL_COUNT++;
@@ -47,11 +47,13 @@ var gameBoard = (function() {
           } 
           // alternates between the 2 players
           if (playerTurn) {
-            this.innerText = player1.symbol;
+            this.innerHTML = `<span class="material-icons-outlined gamesymbol1 fade-in">
+            close</span>`
             gameBoardArr[this.getAttribute("id")] = player1.symbol
             displayController.checkWinner(player1);
           } else {
-            this.innerText = player2.symbol;
+            this.innerHTML = `<span class="material-icons-outlined gamesymbol2 fade-in">
+            circle</span>`
             playerTurnText.innerText = `${player2.name}` + "" + "'s Turn";
             gameBoardArr[this.getAttribute("id")] = player2.symbol
             displayController.checkWinner(player2);
@@ -136,8 +138,8 @@ var displayController = (function() {
       winningText.innerText = "Draw!";
       showContent(winnerContainer);
     }
+    blurBackground();
   }
-
 
   function hideContent(id) {
     id.classList.add("hidden");
@@ -147,12 +149,28 @@ var displayController = (function() {
     id.classList.remove("hidden");
   }
 
+  function resetPlayerNames() {
+    player1Name.value = "";
+    player2Name.value = "";
+  }
+
+  function blurBackground() {
+    $('body > *:not(#endscreen)').css("filter","blur(3px)");
+  }
+
+  function unblurBackground() {
+    $('body > *:not(#endscreen)').css("filter","blur(0px)");
+  }
+
   return {
     checkWinner: checkWinner,
     playerTurnDisplay: playerTurnDisplay,
     displayWinner: displayWinner,
     hideContent: hideContent,
-    showContent: showContent
+    showContent: showContent,
+    resetPlayerNames: resetPlayerNames,
+    blurBackground: blurBackground,
+    unblurBackground: unblurBackground
   };
 })();
 
@@ -180,8 +198,7 @@ buttons.forEach(button => {
       }
       if (player1Name.value == player2Name.value) {
         alert("Player names cannot be the same!")
-        player1Name.value = "";
-        player2Name.value = "";
+        displayController.resetPlayerNames();
         return;
       }
       game(player1Name.value, player2Name.value);
@@ -189,17 +206,19 @@ buttons.forEach(button => {
       displayController.showContent(gameScreen);
     }
     if (button.classList.contains("gobackbtn")) {
+      displayController.resetPlayerNames();
       displayController.hideContent(playerMenu);
       displayController.showContent(mainMenu);
     }
     if (button.classList.contains("restartbtn")) {
       gameBoard.restartGameBoard();
+      displayController.unblurBackground();
       game(player1Name.value, player2Name.value);
     }
     if (button.classList.contains("mainmenubtn")) {
-      player1Name.value = "";
-      player2Name.value = "";
+      displayController.resetPlayerNames();
       gameBoard.restartGameBoard();
+      displayController.unblurBackground();
       displayController.showContent(mainMenu);
       displayController.hideContent(gameScreen);
     }
