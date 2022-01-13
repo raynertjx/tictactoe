@@ -1,6 +1,44 @@
-@font-face {
-  font-family: 'clearSans';
-  src: url('fonts/ClearSans-Regular.ttf');
+.fade-in {
+  animation: fadeIn ease 0.5s;
+  -webkit-animation: fadeIn ease 0.5s;
+  -moz-animation: fadeIn ease 0.5s;
+  -o-animation: fadeIn ease 0.5s;
+  -ms-animation: fadeIn ease 0.5s;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 html, body {
@@ -15,6 +53,14 @@ input[type=text] {
   border: 3px solid #808080;
   border-radius: 7px;
   caret-color: #616161;
+}
+
+input[type=text]:focus {
+  border: 3px solid #e7a581;
+  outline: none;
+  -webkit-transition: border 0.3s ease;
+  -ms-transition: border 0.3s ease;
+  transition: border 0.3s ease;
 }
 
 .btn {
@@ -32,13 +78,23 @@ input[type=text] {
   border-radius: 7px;
 }
 
-.btn:hover {
+.startgamebtn {
+  gap: 5px;
+}
+
+.btn:hover, .startgamebtn:hover {
   color: #000;
   background-color: #f2f0f1;
   border: 3px solid #e78190;
-  -webkit-transition: background-color 0.2s ease, border 0.2s ease;
-  -ms-transition: background-color 0.2s  ease, border 0.2s ease;
-  transition: background-color 0.2s ease, border 0.2s ease;
+  -webkit-transition: background-color 0.3s ease, border 0.3s ease;
+  -ms-transition: background-color 0.3s  ease, border 0.3s ease;
+  transition: background-color 0.3s ease, border 0.3s ease;
+}
+
+.startgamebtn:hover {
+  color: #000;
+  background-color: #f4fdf7;
+  border: 3px solid #60cd87;
 }
 
 .gametitle {
@@ -84,31 +140,67 @@ input[type=text] {
   gap: 3rem;
 }
 
-#playerturntext {
-  height: 50px;
-  border: 1px solid black;
+.playerturntext {
+  font-size: 3em;
 }
 
-#winningtext {
-  height: 20px;
-  border: 1px solid black;
+.winnercontainer  {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: 200px;
+  width: 500px;
+  background-color: #fff;;
+  border: 3px solid #808080;
+  border-radius: 10px;
+  -webkit-box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.68); 
+  box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.68);
+}
+
+.endscreenbtnbox {
+  display: flex;
+  gap: 15px;
+}
+
+.winningtext {
+  font-size: 4em;
+}
+
+.material-icons-outlined.gamesymbol1 {
+  font-size: 120px;
+  color: #81bcdd;
+  transition: ease 1s;
+}
+
+.material-icons-outlined.gamesymbol2 {
+  font-size: 90px;
+  font-weight: 700;
+  color: #dd818e;
 }
 
 .cell {
-  width: 100px;
-  height: 100px;
-  border: 1px solid black;
-  background-color: white;
-  text-align: center;
-  font-size: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
 }
+
 
 .grid {
   display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(3, 100px);
+  grid-template-columns: repeat(3, 150px);
+  grid-template-rows: repeat(3, 150px);
+  grid-gap: 3px;
+  background-color: #808080;
 }
 
 .hidden {
   display: none;
 }
+
