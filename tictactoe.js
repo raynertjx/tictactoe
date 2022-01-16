@@ -33,7 +33,7 @@ var gameBoard = (function() {
     for (var row = 0; row < ROWS; row++) {
       for (var column = 0; column < COLUMNS; column++) {
         var cell = document.createElement("div");
-        cell.setAttribute("class", "cell fadein");
+        cell.setAttribute("class", "cell");
         cell.setAttribute("id", CELL_COUNT);
         stage.appendChild(cell);
         CELL_COUNT++;
