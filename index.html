@@ -13,12 +13,12 @@
   <title>Tic-Tac-Toe</title>
 </head>
 <body>
-  <div class="mainmenu">
+  <div class="mainmenu fade-in-pages"">
     <h1 class=" gametitle">Tic-Tac-Toe</h1>
     <h2 class="playgametitle">Play Game:</h2>    
     <button class="playermenubtn btn">VS Player<span class="material-icons-outlined">face</span></button>
   </div>
-  <div class="playermenu hidden">
+  <div class="playermenu hidden fade-in-pages"">
     <div class="playernameinput">
       <div class="playernamebox">
         <h1 class="playernamelabel">Player 1:</h1>
@@ -34,16 +34,19 @@
       <button class="startgamebtn btn">Start Game<span class="material-icons-outlined">play_arrow</span></button>
     </div> 
   </div>
-  <div class="gamescreen hidden">
+  <div class="gamescreen hidden fade-in-pages"">
     <div class="playerturntext"></div>
     <div id="stage" class="grid"></div>
   </div>
-  <div id="endscreen" class="winnercontainer hidden">
+  <div id="endscreen" class="winnercontainer hidden fade-in-pages">
     <div class="winningtext"></div>
     <div class="endscreenbtnbox">
       <button class="mainmenubtn btn">Main Menu<span class="material-icons-outlined">menu</span></button>
       <button class="restartbtn btn">Restart<span class="material-icons-outlined">replay</span></button>
     </div>
+  </div>
+  <div class="footer">
+    Created by <a href="https://github.com/raynertjx">Rayner Toh</a>
   </div>
 </body>
 <script src="tictactoe.js"></script>
